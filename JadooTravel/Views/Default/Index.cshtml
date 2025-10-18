@@ -1,0 +1,142 @@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+
+<body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        @await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+
+        @await Component.InvokeAsync("_DefaultFeatureComponentPartial")
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        @await Component.InvokeAsync("_DefaultCategoryComponentPartial")
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        @await Component.InvokeAsync("_DefaultDestinationComponentPartial")
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        @await Component.InvokeAsync("_DefaultBookingComponentPartial")
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        @await Component.InvokeAsync("_DefaultTestimonialComponentPartial")
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+      
+
+        <div class="position-relative pt-9 pt-lg-8 pb-6 pb-lg-8">
+            <div class="container">
+                <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 flex-center">
+                    <div class="col">
+                        <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                            <div class="card-body text-center"> <img class="img-fluid" src="/jadoo/public/assets/img/partner/1.png" alt="" /></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                            <div class="card-body text-center"> <img class="img-fluid" src="/jadoo/public/assets/img/partner/2.png" alt="" /></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                            <div class="card-body text-center"> <img class="img-fluid" src="/jadoo/public/assets/img/partner/3.png" alt="" /></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                            <div class="card-body text-center"> <img class="img-fluid" src="/jadoo/public/assets/img/partner/4.png" alt="" /></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                            <div class="card-body text-center"> <img class="img-fluid" src="/jadoo/public/assets/img/partner/5.png" alt="" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* @RenderBody() *@
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        @await Component.InvokeAsync("_DefaultMessageComponentPartial")        
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+        <!-- ============================================-->
+        <!-- ============================================-->
+        <!-- AI DESTINATION SECTION -->
+        <section class="py-6 bg-light">
+            <div class="container text-center">
+                <h3 class="mb-4">🗺️ Yapay Zekâ ile Gezi Önerileri</h3>
+
+                <form id="aiTravelForm" class="row justify-content-center">
+                    <div class="col-md-4 mb-3">
+                        <input id="cityInput" class="form-control" placeholder="Şehir" required />
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <input id="countryInput" class="form-control" placeholder="Ülke" required />
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <button type="submit" class="btn btn-primary w-100">Keşfet</button>
+                    </div>
+                </form>
+                <!-- Modal -->
+                <div class="modal fade" id="travelAiModal" tabindex="-1" aria-labelledby="travelAiModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 15px;">
+                            <div class="modal-header bg-warning bg-opacity-10">
+                                <h5 class="modal-title fw-bold" id="travelAiModalLabel">🌍 Yapay Zekâ Gezi Önerileri</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="travelResults">
+                                    <div class="text-center text-secondary py-4">Henüz veri yok.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="travelResults" class="mt-4"></div>
+            </div>
+        </section>
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        @await Component.InvokeAsync("_DefaultFooterComponentPartial")        
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+        <div class="py-5 text-center">
+            <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved@jadoo.co </p>
+        </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+    
+
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+@model JadooTravel.Dtos.AdminDtos.UpdateAdminDto
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <h4>Admin Güncelle</h4>
+    <form method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label>Kullanıcı Adı</label>
+            <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Yeni Şifre</label>
+            <input asp-for="Password" type="password" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-warning">Güncelle</button>
+    </form>
+</div>

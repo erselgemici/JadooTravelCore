@@ -1,0 +1,255 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<!-- 🟢 İSTATİSTİK KUTULARI -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm border-start border-primary border-4">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Toplam Tur</h6>
+                <h4 class="fw-bold text-primary">@ViewBag.TotalTours</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-start border-success border-4">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Toplam Rezervasyon</h6>
+                <h4 class="fw-bold text-success">@ViewBag.TotalBookings</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-start border-warning border-4">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Toplam Kişi</h6>
+                <h4 class="fw-bold text-warning">@ViewBag.TotalPeople</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-start border-danger border-4">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Ortalama Fiyat</h6>
+                <h4 class="fw-bold text-danger">@ViewBag.AvgPrice ₺</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 🔵 SON 7 GÜN REZERVASYON GRAFİĞİ -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3 text-primary">Son 7 Günlük Rezervasyon Grafiği</h6>
+                <canvas id="weekChart" height="90"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 📊 3 ANA GRAFİK -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3 text-primary">Turlara Göre Katılımcı Sayısı</h6>
+                <canvas id="tourChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3 text-success">Aylık Rezervasyon Sayısı</h6>
+                <canvas id="monthChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3 text-danger">Şehirlere Göre Dağılım</h6>
+                <canvas id="cityChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 🧾 SON EKLENEN 5 TUR -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-semibold mb-0">Son Eklenen Turlar</h5>
+            <i class="ti ti-map text-primary fs-5"></i>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Tur Adı</th>
+                        <th>Ülke / Şehir</th>
+                        <th>Fiyat</th>
+                        <th>Kapasite</th>
+                        <th>Gün / Gece</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dest in ViewBag.LastDestinations)
+                    {
+                        <tr>
+                            <td><strong>@dest.Description</strong></td>
+                            <td>@dest.CityCountry</td>
+                            <td>@dest.Price ₺</td>
+                            <td>@dest.Capacity kişi</td>
+                            <td>@dest.DayNight</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- 🖼️ SON 4 TUR KART GÖRÜNÜMÜ -->
+<div class="row">
+    @foreach (var dest in ViewBag.LastFour)
+    {
+        <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden shadow-sm">
+                <div class="position-relative">
+                    <a href="#">
+                        <img src="@dest.ImageUrl" class="card-img-top rounded-0" alt="@dest.CityCountry">
+                    </a>
+                    <a href="javascript:void(0)"
+                       class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
+                       data-bs-toggle="tooltip" data-bs-title="@dest.CityCountry">
+                        <i class="ti ti-map-pin fs-4"></i>
+                    </a>
+                </div>
+                <div class="card-body pt-3 p-4">
+                    <h6 class="fw-semibold fs-5">@dest.CityCountry</h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="fw-semibold mb-0">@dest.Price ₺</h6>
+                        <span class="badge bg-light-primary text-primary">@dest.DayNight</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+        // 🔵 Son 7 Günlük Kişi Sayısı Grafiği
+    const weekLabels = @Html.Raw(Json.Serialize(ViewBag.WeekLabels));
+    const weekValues = @Html.Raw(Json.Serialize(ViewBag.WeekValues));
+
+    const maxY = Math.max(...weekValues) + 1;
+
+    new Chart(document.getElementById('weekChart'), {
+        type: 'line',
+        data: {
+            labels: weekLabels,
+            datasets: [{
+                label: 'Kişi Sayısı',
+                data: weekValues,
+                borderColor: '#5D87FF',
+                backgroundColor: '#5D87FF33',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return `📅 ${context.label}: ${context.parsed.y} kişi`;
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Son 7 Günlük Kişi Sayısı Grafiği',
+                    font: { size: 16 }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxY,
+                    ticks: {
+                        stepSize: 1,
+                        precision: 0
+                    },
+                    title: {
+                        display: true,
+                        text: 'Kişi Sayısı'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Tarih - Şehir'
+                    }
+                }
+            }
+        }
+    });
+
+    // 1️⃣ Tour Chart
+    new Chart(document.getElementById('tourChart'), {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewBag.TourLabels)),
+            datasets: [{
+                label: 'Kişi Sayısı',
+                data: @Html.Raw(Json.Serialize(ViewBag.TourValues)),
+                backgroundColor: '#5D87FF',
+                borderRadius: 6
+            }]
+        }
+    });
+
+    // 2️⃣ Month Chart
+    new Chart(document.getElementById('monthChart'), {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewBag.MonthLabels)),
+            datasets: [{
+                label: 'Rezervasyonlar',
+                data: @Html.Raw(Json.Serialize(ViewBag.MonthValues)),
+                borderColor: '#49BEFF',
+                tension: 0.3,
+                fill: false
+            }]
+        }
+    });
+
+    // 3️⃣ City Chart
+    new Chart(document.getElementById('cityChart'), {
+        type: 'doughnut',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewBag.CityLabels)),
+            datasets: [{
+                data: @Html.Raw(Json.Serialize(ViewBag.CityValues)),
+                backgroundColor: ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B']
+            }]
+        },
+        options: {
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+</script>
+

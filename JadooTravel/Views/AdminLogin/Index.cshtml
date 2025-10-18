@@ -1,0 +1,38 @@
+@model List<JadooTravel.Entities.Admin>
+@{
+    ViewData["Title"] = "Admin Listesi";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h4>Admin Listesi</h4>
+        <a asp-action="Create" class="btn btn-success">Yeni Admin</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kullanıcı Adı</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var admin in Model)
+            {
+                <tr>
+                    <td>@admin.Username</td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@admin.Id" class="btn btn-outline-success btn-sm">Güncelle</a>
+                        <a asp-action="Delete" asp-route-id="@admin.Id" class="btn btn-outline-danger btn-sm ms-1">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

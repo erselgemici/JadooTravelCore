@@ -1,0 +1,54 @@
+@model JadooTravel.Dtos.ReservationDtos.CreateReservationDto
+@{
+    ViewData["Title"] = "Yeni Rezervasyon Ekle";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between rounded-top">
+            <h5 class="mb-0">
+                <iconify-icon icon="mdi:plus-box-outline" class="me-2"></iconify-icon> Yeni Rezervasyon Ekle
+            </h5>
+            <a href="/Reservation/Index" class="btn btn-light btn-sm">
+                <iconify-icon icon="mdi:arrow-left"></iconify-icon> Geri Dön
+            </a>
+        </div>
+
+        <div class="card-body p-4">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Ad Soyad</label>
+                        <input asp-for="NameSurname" class="form-control" placeholder="Ad Soyad giriniz" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Telefon</label>
+                        <input asp-for="Phone" class="form-control" placeholder="Telefon numaranız" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">E-Posta</label>
+                        <input asp-for="Email" class="form-control" placeholder="E-posta adresiniz" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Tur (Destination ID)</label>
+                        <input asp-for="DestinationId" class="form-control" placeholder="Tur ID giriniz" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Açıklama</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Açıklama giriniz"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-primary d-flex align-items-center">
+                        <iconify-icon icon="mdi:content-save-outline" class="me-1"></iconify-icon> Kaydet
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary d-flex align-items-center">
+                        <iconify-icon icon="mdi:refresh"></iconify-icon> Temizle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

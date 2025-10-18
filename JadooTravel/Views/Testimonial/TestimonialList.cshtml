@@ -1,0 +1,66 @@
+@model List<JadooTravel.Dtos.TestimonialDtos.ResultTestimonialDto>
+@{
+    ViewData["Title"] = "Yorumlar Listesi";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+            <h5 class="mb-0">
+                <iconify-icon icon="mdi:comment-quote-outline" class="me-2"></iconify-icon> Yorumlar Listesi
+            </h5>
+            <a href="/Testimonial/CreateTestimonial" class="btn btn-light btn-sm">
+                <iconify-icon icon="mdi:plus-circle-outline" class="me-1"></iconify-icon> Yeni Yorum Ekle
+            </a>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Ad Soyad</th>
+                            <th>Görsel</th>
+                            <th>Yorum</th>
+                            <th>Şehir / Ülke</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.TestimonialId</td>
+                                <td>@item.NameSurname</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    {
+                                        <img src="@item.ImageUrl" alt="Görsel" width="60" class="rounded-circle" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Yok</span>
+                                    }
+                                </td>
+                                <td class="text-truncate" style="max-width:200px;">@item.Comment</td>
+                                <td>@item.CityCountry</td>
+                                <td>
+                                    <a href="/Testimonial/UpdateTestimonial/@item.TestimonialId" class="btn btn-outline-success btn-sm">
+                                        <iconify-icon icon="mdi:pencil-outline"></iconify-icon> Güncelle
+                                    </a>
+                                    <a href="/Testimonial/DeleteTestimonial/@item.TestimonialId" class="btn btn-outline-danger btn-sm ms-1">
+                                        <iconify-icon icon="mdi:delete-outline"></iconify-icon> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>

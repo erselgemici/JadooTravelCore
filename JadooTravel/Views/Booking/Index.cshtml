@@ -1,0 +1,149 @@
+@model List<JadooTravel.Dtos.BookingDtos.ResultBookingDto>
+@{
+    ViewData["Title"] = "Rezervasyon Listesi";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="card mt-4 shadow-none border-0 rounded-4">
+    <!-- Başlık Şeridi -->
+    <div class="card-header bg-primary d-flex justify-content-between align-items-center rounded-top-4 py-3">
+        <h4 class="fw-bold mb-0 text-white">
+            <i class="ti ti-calendar-check me-2 text-warning"></i>
+            Rezervasyon Listesi
+        </h4>
+        <a href="/Default/Index" class="btn btn-sm btn-outline-light text-white rounded-pill px-3 py-1">
+            <i class="ti ti-arrow-left me-1"></i> Siteye Dön
+        </a>
+    </div>
+
+    <!-- Kart İçeriği -->
+    <div class="card-body bg-white rounded-bottom-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th style="width: 80px;">#</th>
+                        <th>Ad Soyad</th>
+                        <th>E-posta</th>
+                        <th>Telefon</th>
+                        <th>Şehir</th>
+                        <th>Kişi Sayısı</th>
+                        <th>Tarih</th>
+                        <th>Not</th>
+                        <th style="width: 160px;">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @if (Model != null && Model.Any())
+                    {
+                        int count = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td class="fw-semibold text-dark">@item.NameSurname</td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td>@item.DestinationName</td>
+                                <td>@item.PersonCount</td>
+                                <td>@item.BookingDate.ToShortDateString()</td>
+                                <td>@(string.IsNullOrWhiteSpace(item.Note) ? "-" : item.Note)</td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @if (item.IsApproved)
+                                        {
+                                            <button class="btn btn-sm btn-success rounded-pill px-3" disabled>
+                                                <i class="ti ti-check"></i> Onaylandı
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-success rounded-pill px-3"
+                                                    onclick="confirmApprove('@item.BookingId')">
+                                                <i class="ti ti-check"></i> Onayla
+                                            </button>
+                                        }
+
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                                onclick="confirmDelete('@item.BookingId')">
+                                            <i class="ti ti-trash"></i> Sil
+                                        </button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9" class="text-muted py-4">
+                                <i class="ti ti-info-circle text-warning me-2"></i>
+                                Henüz bir rezervasyon yapılmamış.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // ✅ Rezervasyonu ONAYLA
+    function confirmApprove(id) {
+        Swal.fire({
+            title: 'Rezervasyonu Onayla',
+            text: 'Bu rezervasyonu onaylamak istediğinizden emin misiniz?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Onayla',
+            cancelButtonText: 'Vazgeç',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/Booking/Approve/' + id;
+            }
+        });
+    }
+
+    // 🗑️ Rezervasyonu SİL
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Rezervasyonu Sil',
+            text: 'Bu rezervasyonu silmek istediğinizden emin misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, Sil',
+            cancelButtonText: 'Vazgeç',
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/Booking/Delete/' + id;
+            }
+        });
+    }
+
+    // 💬 İşlem sonrası mesaj (TempData)
+    @if (TempData["Message"] != null)
+    {
+                <text>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı!',
+                        text: '@TempData["Message"]',
+                        confirmButtonColor: '#3085d6'
+                    });
+                </text>
+    }
+</script>
+
+

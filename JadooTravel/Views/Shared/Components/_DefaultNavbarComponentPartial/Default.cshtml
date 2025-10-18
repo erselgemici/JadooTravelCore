@@ -1,0 +1,59 @@
+
+@*
+    DefaultNavbarComponent
+*@
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-5 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="/jadoo/public/assets/img/logo.svg" height="34" alt="logo" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"> </span>
+        </button>
+
+        <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="#service">Hizmetlerimiz</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="#destination">Lokasyonlar</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="#booking">Rezervasyon</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="#testimonial">Bize Yazın</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" href="/AdminLogin/Login">Giriş Yap</a></li>
+
+                <!-- 🌐 Dil Seçimi -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="langDropdown" data-bs-toggle="dropdown">
+                        <span id="current-flag" class="me-2">🇹🇷</span> Dil
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end p-2 shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                        <li><button class="dropdown-item d-flex align-items-center" onclick="changeLang('tr', '🇹🇷')">🇹🇷 <span class="ms-2">Türkçe</span></button></li>
+                        <li><button class="dropdown-item d-flex align-items-center" onclick="changeLang('en', '🇬🇧')">🇬🇧 <span class="ms-2">English</span></button></li>
+                        <li><button class="dropdown-item d-flex align-items-center" onclick="changeLang('fr', '🇫🇷')">🇫🇷 <span class="ms-2">Français</span></button></li>
+                        <li><button class="dropdown-item d-flex align-items-center" onclick="changeLang('de', '🇩🇪')">🇩🇪 <span class="ms-2">Deutsch</span></button></li>
+                        <li><button class="dropdown-item d-flex align-items-center" onclick="changeLang('es', '🇪🇸')">🇪🇸 <span class="ms-2">Español</span></button></li>
+                        <li><button class="dropdown-item d-flex align-items-center" onclick="changeLang('ru', '🇷🇺')">🇷🇺 <span class="ms-2">Русский</span></button></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<script>
+    // 🌐 Google Translate tetikleyici
+    function changeLang(lang, flag) {
+        const tryChange = () => {
+            const combo = document.querySelector('.goog-te-combo');
+            if (combo) {
+                combo.value = lang;
+                combo.dispatchEvent(new Event('change'));
+                document.getElementById('current-flag').textContent = flag;
+                console.log(`🌍 Çeviri ${lang} diline yapıldı.`);
+            } else {
+                setTimeout(tryChange, 500);
+            }
+        };
+        tryChange();
+    }
+</script>

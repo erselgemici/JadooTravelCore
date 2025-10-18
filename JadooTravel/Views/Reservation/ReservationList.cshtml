@@ -1,0 +1,59 @@
+@model List<JadooTravel.Dtos.ReservationDtos.ResultReservationDto>
+@{
+    ViewData["Title"] = "Rezervasyon Listesi";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between rounded-top">
+            <h5 class="mb-0">
+                <iconify-icon icon="mdi:calendar-clock" class="me-2"></iconify-icon> Rezervasyonlar
+            </h5>
+            <a href="/Reservation/CreateReservation" class="btn btn-light btn-sm">
+                <iconify-icon icon="mdi:plus-circle-outline" class="me-1"></iconify-icon> Yeni Rezervasyon Ekle
+            </a>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Ad Soyad</th>
+                            <th>Telefon</th>
+                            <th>E-Posta</th>
+                            <th>Açıklama</th>
+                            <th>Tur ID</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ReservationId</td>
+                                <td>@item.NameSurname</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Email</td>
+                                <td class="text-truncate" style="max-width: 250px;">@item.Description</td>
+                                <td>@item.DestinationId</td>
+                                <td class="text-center align-middle">
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <a href="/Reservation/UpdateReservation/@item.ReservationId" class="btn btn-outline-success btn-sm d-flex align-items-center">
+                                            <iconify-icon icon="mdi:pencil-outline" class="me-1"></iconify-icon> Güncelle
+                                        </a>
+                                        <a href="/Reservation/DeleteReservation/@item.ReservationId" class="btn btn-outline-danger btn-sm d-flex align-items-center">
+                                            <iconify-icon icon="mdi:delete-outline" class="me-1"></iconify-icon> Sil
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

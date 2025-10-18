@@ -1,0 +1,66 @@
+@model JadooTravel.Dtos.CategoryDtos.UpdateCategoryDto
+@{
+    ViewData["Title"] = "Kategori Güncelle";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-success text-white d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">
+                        <iconify-icon icon="mdi:playlist-edit" class="fs-5 me-2"></iconify-icon> Kategori Güncelle
+                    </h5>
+                    <a href="/Category/Index" class="btn btn-light btn-sm">
+                        <iconify-icon icon="mdi:arrow-left"></iconify-icon> Geri Dön
+                    </a>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="post">
+                        <input type="hidden" asp-for="CategoryId" />
+
+                        <div class="mb-3">
+                            <label asp-for="CategoryName" class="form-label fw-semibold">
+                                <iconify-icon icon="mdi:tag-multiple-outline" class="me-1 text-success"></iconify-icon>
+                                Kategori Adı
+                            </label>
+                            <input asp-for="CategoryName" class="form-control" placeholder="Kategori adını güncelleyin" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label fw-semibold">
+                                <iconify-icon icon="mdi:text-box-outline" class="me-1 text-success"></iconify-icon>
+                                Açıklama
+                            </label>
+                            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Yeni açıklama girin"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="IconUrl" class="form-label fw-semibold">
+                                <iconify-icon icon="mdi:image-outline" class="me-1 text-success"></iconify-icon>
+                                İkon URL
+                            </label>
+                            <input asp-for="IconUrl" class="form-control" placeholder="https://..." />
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="Status" class="form-check-input" type="checkbox" id="statusCheck" />
+                            <label class="form-check-label" for="statusCheck">Aktif mi?</label>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success">
+                                <iconify-icon icon="mdi:content-save-edit-outline" class="me-1"></iconify-icon> Güncelle
+                            </button>
+                            <a href="/Category/Index" class="btn btn-outline-secondary">
+                                <iconify-icon icon="mdi:close-circle-outline"></iconify-icon> İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

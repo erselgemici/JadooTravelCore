@@ -1,0 +1,19 @@
+@model JadooTravel.Dtos.AdminDtos.CreateAdminDto
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <h4>Yeni Admin Oluştur</h4>
+    <form method="post">
+        <div class="mb-3">
+            <label>Kullanıcı Adı</label>
+            <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Şifre</label>
+            <input asp-for="Password" type="password" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>

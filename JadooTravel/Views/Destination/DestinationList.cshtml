@@ -1,0 +1,70 @@
+@model List<JadooTravel.Dtos.DestinationDtos.ResultDestinationDto>
+@{
+    ViewData["Title"] = "Turlar Listesi";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+            <h5 class="mb-0">
+                <iconify-icon icon="mdi:airplane-marker" class="me-2"></iconify-icon> Turlar Listesi
+            </h5>
+            <a href="/Destination/CreateDestination" class="btn btn-light btn-sm">
+                <iconify-icon icon="mdi:plus-circle-outline" class="me-1"></iconify-icon> Yeni Tur Ekle
+            </a>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Şehir / Ülke</th>
+                            <th>Görsel</th>
+                            <th>Fiyat</th>
+                            <th>Gün / Gece</th>
+                            <th>Kapasite</th>
+                            <th>Açıklama</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.DestinationId</td>
+                                <td>@item.CityCountry</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    {
+                                        <img src="@item.ImageUrl" alt="destination" width="70" class="rounded" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Yok</span>
+                                    }
+                                </td>
+                                <td>@item.Price ₺</td>
+                                <td>@item.DayNight</td>
+                                <td>@item.Capacity</td>
+                                <td class="text-truncate" style="max-width:200px;">@item.Description</td>
+                                <td class="text-center align-middle" style="white-space: nowrap; vertical-align: middle;">
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <a href="/Destination/UpdateDestination/@item.DestinationId" class="btn btn-outline-success btn-sm d-flex align-items-center">
+                                            <iconify-icon icon="mdi:pencil-outline" class="me-1"></iconify-icon> Güncelle
+                                        </a>
+                                        <a href="/Destination/DeleteDestination/@item.DestinationId" class="btn btn-outline-danger btn-sm d-flex align-items-center">
+                                            <iconify-icon icon="mdi:delete-outline" class="me-1"></iconify-icon> Sil
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+@model List<JadooTravel.Dtos.ServiceDtos.ResultServiceDto>
+@{
+    ViewData["Title"] = "Hizmetlerimiz";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+            <h5 class="mb-0">
+                <iconify-icon icon="mdi:briefcase-outline" class="me-2"></iconify-icon> Hizmetlerimiz Listesi
+            </h5>
+            <a href="/Service/CreateService" class="btn btn-light btn-sm">
+                <iconify-icon icon="mdi:plus-circle-outline" class="me-1"></iconify-icon> Yeni Hizmet Ekle
+            </a>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Başlık</th>
+                            <th>Açıklama</th>
+                            <th>Icon URL</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ServiceId</td>
+                                <td>@item.Title</td>
+                                <td class="text-truncate" style="max-width:250px;">@item.Description</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.IconUrl))
+                                    {
+                                        <img src="@item.IconUrl" width="50" alt="icon" class="rounded" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Yok</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="/Service/UpdateService/@item.ServiceId" class="btn btn-outline-success btn-sm">
+                                        <iconify-icon icon="mdi:pencil-outline"></iconify-icon> Güncelle
+                                    </a>
+                                    <a href="/Service/DeleteService/@item.ServiceId" class="btn btn-outline-danger btn-sm ms-1">
+                                        <iconify-icon icon="mdi:delete-outline"></iconify-icon> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>

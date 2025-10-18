@@ -1,0 +1,50 @@
+@model JadooTravel.Dtos.TripPlanDtos.UpdateTripPlanDto
+@{
+    ViewData["Title"] = "Plan Güncelle";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-success text-white d-flex align-items-center justify-content-between">
+            <h5 class="mb-0">
+                <iconify-icon icon="mdi:pencil-outline" class="me-2"></iconify-icon> Plan Güncelle
+            </h5>
+            <a href="/TripPlan/TripPlanList" class="btn btn-light btn-sm">
+                <iconify-icon icon="mdi:arrow-left"></iconify-icon> Geri Dön
+            </a>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" asp-for="TripPlanId" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Başlık</label>
+                    <input type="text" asp-for="Title" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Açıklama</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">İkon URL</label>
+                    <input type="text" asp-for="IconUrl" class="form-control" />
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success">
+                        <iconify-icon icon="mdi:check-circle-outline"></iconify-icon> Güncelle
+                    </button>
+                    <a href="/TripPlan/TripPlanList" class="btn btn-outline-secondary ms-2">
+                        <iconify-icon icon="mdi:cancel"></iconify-icon> Vazgeç
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>

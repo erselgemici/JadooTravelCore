@@ -1,0 +1,53 @@
+@model JadooTravel.Dtos.TestimonialDtos.CreateTestimonialDto
+@{
+    ViewData["Title"] = "Yeni Yorum Ekle";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+            <h5 class="mb-0">
+                <iconify-icon icon="mdi:plus-circle-outline" class="me-2"></iconify-icon> Yeni Yorum Ekle
+            </h5>
+            <a href="/Testimonial/TestimonialList" class="btn btn-light btn-sm">
+                <iconify-icon icon="mdi:arrow-left"></iconify-icon> Geri Dön
+            </a>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Ad Soyad</label>
+                    <input type="text" asp-for="NameSurname" class="form-control" placeholder="Ad soyad giriniz" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Görsel URL</label>
+                    <input type="text" asp-for="ImageUrl" class="form-control" placeholder="Görsel bağlantısı giriniz" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Yorum</label>
+                    <textarea asp-for="Comment" class="form-control" rows="3" placeholder="Yorum metnini giriniz"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Şehir / Ülke</label>
+                    <input type="text" asp-for="CityCountry" class="form-control" placeholder="Şehir veya ülke giriniz" />
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">
+                        <iconify-icon icon="mdi:content-save-outline"></iconify-icon> Kaydet
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary ms-2">
+                        <iconify-icon icon="mdi:refresh"></iconify-icon> Temizle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
